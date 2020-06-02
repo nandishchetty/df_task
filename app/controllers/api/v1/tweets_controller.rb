@@ -1,5 +1,5 @@
 class Api::V1::TweetsController < Api::V1::BaseController
-	before_action :find_tweet, :check_role, only: [ :update, :delete ]
+	before_action :find_tweet, :check_role, only: [ :update, :destroy ]
 
 	def create
 		tweet = current_user.tweets.new(tweet_params)
@@ -18,7 +18,7 @@ class Api::V1::TweetsController < Api::V1::BaseController
 		end
 	end
 
-	def delete
+	def destroy
     if @tweet.destroy
     	render json: { sucess: true}, status: :ok
     else
