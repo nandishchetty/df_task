@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   acts_as_token_authenticatable
 
-  ROLES = { editor: 'editor', basic: 'basic' }
+  ROLES = { admin: 'admin', user: 'user' }
 
   has_many :tweets, dependent: :destroy
   # Include default devise modules. Others available are:
@@ -9,7 +9,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # validates :role, presence: true
 
   def renew_authentication_token
     self.authentication_token = nil
@@ -17,9 +16,9 @@ class User < ApplicationRecord
   end
 
   def is_admin?
-  	# if role == 'admin'
+  	 if role == 'admin'
       true
-    # end
+     end
   end
   
 end
